@@ -4,8 +4,12 @@ const driverPodium = document.getElementById("driverPodium");
 const teamPodium = document.getElementById("teamPodium");
 const raceResultsGrid = document.getElementById("raceResults");
 const driverStatsGrid = document.getElementById("driverStats");
+const constructorStrip = document.getElementById("constructorStrip");
+const driverSearch = document.getElementById("driverSearch");
 const viewCards = document.querySelectorAll("[data-view-target]");
 const viewSections = document.querySelectorAll("[data-view]");
+const seasonButtons = document.querySelectorAll("[data-season]");
+const seasonNotice = document.getElementById("seasonNotice");
 const teamLeaderCard = document.getElementById("teamLeaderName").parentElement;
 const sortedStandings = [...standings].sort((a, b) => b.points - a.points || a.driver.localeCompare(b.driver));
 const teamTotals = teamsList
@@ -27,6 +31,7 @@ const driverStats = standings
 const winLeader = [...driverStats].sort((a, b) => b.wins - a.wins || b.points - a.points || a.driver.localeCompare(b.driver))[0];
 const podiumLeader = [...driverStats].sort((a, b) => b.podiums - a.podiums || b.points - a.points || a.driver.localeCompare(b.driver))[0];
 const hotStreakDriver = [...driverStats].sort((a, b) => (b.wins + b.podiums) - (a.wins + a.podiums) || b.points - a.points || a.driver.localeCompare(b.driver))[0];
+let activeView = "drivers";
 
 function renderTeamLogo(team) {
   const mark = teamMarks[team] || team.slice(0, 2).toUpperCase();
@@ -39,15 +44,38 @@ function renderTeamLogo(team) {
   return `<span class="team-logo" aria-hidden="true">${mark}</span>`;
 }
 
-rows.innerHTML = driverStats
-  .map((entry, index) => {
+function medalClassForRank(rank) {
+  if (rank === 1) {
+    return "medal-gold";
+  }
+  if (rank === 2) {
+    return "medal-silver";
+  }
+  if (rank === 3) {
+    return "medal-bronze";
+  }
+  return "";
+}
+
+function renderDriverRows(query = "") {
+  const normalizedQuery = query.trim().toLowerCase();
+  const filteredDrivers = normalizedQuery
+    ? driverStats.filter((entry) => {
+        const displayTeam = (teamDisplayNames[entry.team] || entry.team).toLowerCase();
+        return entry.driver.toLowerCase().includes(normalizedQuery) || displayTeam.includes(normalizedQuery) || entry.team.toLowerCase().includes(normalizedQuery);
+      })
+    : driverStats;
+
+  rows.innerHTML = filteredDrivers
+    .map((entry, index) => {
     const rgb = teamColors[entry.team] || "140, 148, 160";
     const rank = index + 1;
     const podiumClass = rank <= 3 ? "podium" : "";
+    const medalClass = medalClassForRank(rank);
 
     return `
-      <tr class="${podiumClass}" style="--team-rgb: ${rgb}">
-        <td class="rank">#${rank}</td>
+      <tr class="${podiumClass} rank-${rank}" style="--team-rgb: ${rgb}">
+        <td class="rank ${medalClass}">#${rank}</td>
         <td>
           <div class="driver-cell">
             ${renderTeamLogo(entry.team)}
@@ -62,6 +90,9 @@ rows.innerHTML = driverStats
     `;
   })
   .join("");
+}
+
+renderDriverRows();
 
 driverPodium.innerHTML = sortedStandings
   .slice(0, 3)
@@ -89,10 +120,11 @@ teamRows.innerHTML = teamTotals
     const displayTeam = teamDisplayNames[entry.team] || entry.team;
     const rank = index + 1;
     const podiumClass = rank <= 3 ? "podium" : "";
+    const medalClass = medalClassForRank(rank);
 
     return `
-      <tr class="${podiumClass}" style="--team-rgb: ${rgb}">
-        <td class="rank">#${rank}</td>
+      <tr class="${podiumClass} rank-${rank}" style="--team-rgb: ${rgb}">
+        <td class="rank ${medalClass}">#${rank}</td>
         <td>
           <div class="team-cell">
             <span class="team-badge">${renderTeamLogo(entry.team)}${displayTeam}</span>
@@ -100,6 +132,26 @@ teamRows.innerHTML = teamTotals
         </td>
         <td class="points">${entry.points}</td>
       </tr>
+    `;
+  })
+  .join("");
+
+constructorStrip.innerHTML = teamTotals
+  .map((entry, index) => {
+    const rgb = teamColors[entry.team] || "140, 148, 160";
+    const displayTeam = teamDisplayNames[entry.team] || entry.team;
+
+    return `
+      <article class="constructor-card" style="--team-rgb: ${rgb}">
+        <div class="constructor-top">
+          ${renderTeamLogo(entry.team)}
+          <strong>${displayTeam}</strong>
+        </div>
+        <div class="constructor-bottom">
+          <span>P${index + 1}</span>
+          <span>${entry.points} pts</span>
+        </div>
+      </article>
     `;
   })
   .join("");
@@ -190,6 +242,11 @@ document.getElementById("teamLeaderName").textContent = teamDisplayNames[teamTot
 document.getElementById("teamCount").textContent = teamTotals.length;
 document.getElementById("topScore").textContent = sortedStandings[0]?.points || "0";
 document.getElementById("lastUpdated").textContent = siteMeta.lastUpdated;
+document.getElementById("upcomingTitle").textContent = upcomingRace.title;
+document.getElementById("upcomingTrack").textContent = upcomingRace.track;
+document.getElementById("upcomingRound").textContent = upcomingRace.round;
+document.getElementById("upcomingDate").textContent = upcomingRace.date;
+document.getElementById("upcomingConditions").textContent = upcomingRace.conditions;
 document.getElementById("battleHeadline").textContent = `${sortedStandings[0]?.driver || "-"} vs ${sortedStandings[1]?.driver || "-"}`;
 document.getElementById("battleSubline").textContent = `${sortedStandings[0]?.driver || "-"} leads the standings with ${sortedStandings[0]?.points || 0} points.`;
 document.getElementById("battleLeaderName").textContent = sortedStandings[0]?.driver || "-";
@@ -197,6 +254,9 @@ document.getElementById("battleLeaderPoints").textContent = `${sortedStandings[0
 document.getElementById("battleChaserName").textContent = sortedStandings[1]?.driver || "-";
 document.getElementById("battleChaserPoints").textContent = `${sortedStandings[1]?.points || 0} pts`;
 document.getElementById("battleGap").textContent = `${(sortedStandings[0]?.points || 0) - (sortedStandings[1]?.points || 0)} pts`;
+document.getElementById("battleProgressLeader").textContent = `${sortedStandings[0]?.driver || "-"} • ${sortedStandings[0]?.points || 0}`;
+document.getElementById("battleProgressChaser").textContent = `${sortedStandings[1]?.driver || "-"} • ${sortedStandings[1]?.points || 0}`;
+document.getElementById("battleProgressFill").style.width = `${sortedStandings[0]?.points ? Math.max(18, ((sortedStandings[1]?.points || 0) / sortedStandings[0].points) * 100) : 0}%`;
 
 if (teamTotals[0]?.team) {
   teamLeaderCard.classList.add("is-team-highlight");
@@ -211,9 +271,69 @@ if (sortedStandings[1]?.team) {
   document.getElementById("battleChaserCard").style.setProperty("--team-rgb", teamColors[sortedStandings[1].team] || "140, 148, 160");
 }
 
+function updateUpcomingCountdown() {
+  const countdownNode = document.getElementById("upcomingCountdown");
+  const daysNode = document.getElementById("countdownDays");
+  const hoursNode = document.getElementById("countdownHours");
+  const minutesNode = document.getElementById("countdownMinutes");
+  const secondsNode = document.getElementById("countdownSeconds");
+  const millisNode = document.getElementById("countdownMillis");
+  const startTime = new Date(upcomingRace.startTimeIso);
+  const now = new Date();
+  const diff = startTime.getTime() - now.getTime();
+
+  if (diff <= 0) {
+    countdownNode.textContent = "Race weekend is live";
+    daysNode.textContent = "00";
+    hoursNode.textContent = "00";
+    minutesNode.textContent = "00";
+    secondsNode.textContent = "00";
+    millisNode.textContent = "000";
+    return;
+  }
+
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+  const millis = diff % 1000;
+
+  daysNode.textContent = String(days).padStart(2, "0");
+  hoursNode.textContent = String(hours).padStart(2, "0");
+  minutesNode.textContent = String(minutes).padStart(2, "0");
+  secondsNode.textContent = String(seconds).padStart(2, "0");
+  millisNode.textContent = String(millis).padStart(3, "0");
+  countdownNode.textContent = `Starts in ${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+updateUpcomingCountdown();
+window.setInterval(updateUpcomingCountdown, 50);
+
 function showView(viewName) {
+  if (viewName === activeView) {
+    return;
+  }
+
   viewSections.forEach((section) => {
-    section.classList.toggle("is-hidden", section.dataset.view !== viewName);
+    const shouldShow = section.dataset.view === viewName;
+
+    if (shouldShow) {
+      section.classList.remove("is-hidden", "is-leaving");
+      section.classList.add("is-entering");
+      window.setTimeout(() => section.classList.remove("is-entering"), 360);
+      return;
+    }
+
+    if (!section.classList.contains("is-hidden")) {
+      section.classList.add("is-leaving");
+      window.setTimeout(() => {
+        section.classList.add("is-hidden");
+        section.classList.remove("is-leaving");
+      }, 220);
+      return;
+    }
+
+    section.classList.add("is-hidden");
   });
 
   viewCards.forEach((card) => {
@@ -221,10 +341,98 @@ function showView(viewName) {
     card.classList.toggle("is-active", isActive);
     card.setAttribute("aria-pressed", String(isActive));
   });
+
+  activeView = viewName;
 }
 
 viewCards.forEach((card) => {
   card.addEventListener("click", () => showView(card.dataset.viewTarget));
 });
 
-showView("drivers");
+driverSearch.addEventListener("input", () => {
+  renderDriverRows(driverSearch.value);
+});
+
+const motionPanels = document.querySelectorAll(".topbar, .battle-card, .podium-panel, .board, .summary > div, .view-card");
+
+motionPanels.forEach((panel) => {
+  panel.classList.add("motion-panel");
+
+  panel.addEventListener("pointermove", (event) => {
+    const rect = panel.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    panel.style.setProperty("--glow-x", `${(x / rect.width) * 100}%`);
+    panel.style.setProperty("--glow-y", `${(y / rect.height) * 100}%`);
+    panel.classList.add("is-hovered");
+  });
+
+  panel.addEventListener("pointerleave", () => {
+    panel.classList.remove("is-hovered");
+  });
+});
+
+const revealSections = document.querySelectorAll(".battle-card, .podium-grid, .board, .race-board, footer");
+
+revealSections.forEach((section) => {
+  section.classList.add("reveal-section");
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) {
+      return;
+    }
+
+    entry.target.classList.add("is-visible");
+    revealObserver.unobserve(entry.target);
+  });
+}, {
+  threshold: 0.18,
+  rootMargin: "0px 0px -40px 0px"
+});
+
+revealSections.forEach((section) => {
+  revealObserver.observe(section);
+});
+
+let seasonNoticeTimer;
+
+seasonButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const isSeasonTwo = button.dataset.season === "season2";
+
+    seasonButtons.forEach((item) => {
+      item.classList.toggle("is-active", item.dataset.season === "season1");
+      item.classList.toggle("is-soon", item.dataset.season === "season2");
+    });
+
+    if (!isSeasonTwo) {
+      seasonNotice.classList.remove("is-visible");
+      seasonNotice.textContent = "";
+      return;
+    }
+
+    seasonNotice.textContent = "Season 2 is coming soon!";
+    seasonNotice.classList.add("is-visible");
+    window.clearTimeout(seasonNoticeTimer);
+    seasonNoticeTimer = window.setTimeout(() => {
+      seasonNotice.classList.remove("is-visible");
+    }, 2400);
+  });
+});
+
+window.requestAnimationFrame(() => {
+  document.body.classList.add("is-loaded");
+});
+
+viewSections.forEach((section) => {
+  section.classList.toggle("is-hidden", section.dataset.view !== activeView);
+});
+
+viewCards.forEach((card) => {
+  const isActive = card.dataset.viewTarget === activeView;
+  card.classList.toggle("is-active", isActive);
+  card.setAttribute("aria-pressed", String(isActive));
+});

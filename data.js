@@ -100,6 +100,15 @@ const siteMeta = {
   lastUpdated: "07 May 2026"
 };
 
+const upcomingRace = {
+  title: "German GP",
+  track: "Hockenheim",
+  round: "S1 Round 4",
+  date: "10th May",
+  conditions: "32 Laps • Dry Weather",
+  startTimeIso: "2026-05-10T19:30:00+05:30"
+};
+
 const raceResults = [
   {
     round: "Round 1",
@@ -129,7 +138,7 @@ const raceResults = [
       { position: 2, driver: "Yatneil", racePoints: 18 },
       { position: 3, driver: "Iate", racePoints: 15 },
       { position: 4, driver: "DeDe", racePoints: 12 },
-      { position: 5, driver: "iceh", racePoints: 10 },
+      { position: 5, driver: "Kurjaka", racePoints: 10 },
       { position: 6, driver: "Vini", racePoints: 8 },
       { position: 7, driver: "dummy", racePoints: 6 },
       { position: 8, driver: "LordGRIMM", racePoints: 4 },
@@ -163,7 +172,7 @@ const raceResults = [
     results: [
       { position: 1, driver: "xyro", racePoints: 8 },
       { position: 2, driver: "Iate", racePoints: 7 },
-      { position: 3, driver: "iceh", racePoints: 6 },
+      { position: 3, driver: "Kurjaka", racePoints: 6 },
       { position: 4, driver: "DeDe", racePoints: 5 },
       { position: 5, driver: "Justk4rt", racePoints: 4 },
       { position: 6, driver: "f1 phantom", racePoints: 3 },
