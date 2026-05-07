@@ -1,12 +1,12 @@
 :root {
-  --bg: #080a0f;
-  --panel: #10141d;
-  --panel-2: #151b26;
-  --text: #f6f8fb;
-  --muted: #9aa6b6;
-  --line: rgba(255, 255, 255, 0.09);
-  --accent: #e51f32;
-  --gold: #f5c64f;
+  --bg: #06070b;
+  --panel: #0e1118;
+  --panel-2: #161b24;
+  --text: #f5f7fb;
+  --muted: #93a0b4;
+  --line: rgba(255, 255, 255, 0.1);
+  --accent: #ffffff;
+  --gold: #f3ca67;
 }
 
 * {
@@ -17,11 +17,12 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    linear-gradient(145deg, rgba(229, 31, 50, 0.16), transparent 30%),
-    radial-gradient(circle at 84% 12%, rgba(245, 198, 79, 0.11), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 26%),
+    radial-gradient(circle at 14% 0%, rgba(255, 255, 255, 0.09), transparent 24%),
+    linear-gradient(135deg, rgba(44, 53, 69, 0.35), transparent 34%),
     var(--bg);
   color: var(--text);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Barlow, Arial, sans-serif;
 }
 
 .shell {
@@ -32,20 +33,17 @@ body {
 
 .topbar {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 20px;
-  padding: 24px 0 20px;
+  padding: 24px 0 24px;
   border-bottom: 1px solid var(--line);
 }
 
-.eyebrow {
-  margin: 0 0 8px;
-  color: var(--gold);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 h1,
@@ -55,25 +53,80 @@ h2 {
 }
 
 h1 {
+  font-family: Rajdhani, Arial, sans-serif;
   font-size: clamp(2.1rem, 6vw, 4.8rem);
-  line-height: 0.95;
+  line-height: 0.92;
+  text-transform: uppercase;
   max-width: 780px;
+}
+
+.hero-text {
+  margin: 0;
+  max-width: 560px;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .season-pill {
   flex: 0 0 auto;
   padding: 10px 14px;
-  border: 1px solid rgba(245, 198, 79, 0.32);
-  background: rgba(245, 198, 79, 0.08);
-  color: #ffe3a1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
   border-radius: 999px;
   font-weight: 800;
   font-size: 0.85rem;
 }
 
+.view-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 22px 0 14px;
+}
+
+.view-card {
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border-radius: 8px;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+}
+
+.view-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.view-card.is-active {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+}
+
+.view-card-kicker {
+  display: block;
+  margin-bottom: 10px;
+  color: #d2dae8;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.view-card strong {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
 .summary {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
   margin: 22px 0;
 }
@@ -82,8 +135,89 @@ h1 {
   min-width: 0;
   padding: 18px;
   border: 1px solid var(--line);
-  background: rgba(16, 20, 29, 0.78);
+  background: rgba(14, 17, 24, 0.82);
   border-radius: 8px;
+}
+
+.summary > div.is-team-highlight {
+  background: linear-gradient(90deg, rgba(var(--team-rgb), 0.24), rgba(14, 17, 24, 0.82));
+  border-color: rgba(var(--team-rgb), 0.45);
+}
+
+.podium-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0 0 18px;
+}
+
+.podium-panel {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: rgba(14, 17, 24, 0.92);
+  border-radius: 8px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.26);
+}
+
+.podium-list {
+  padding: 16px;
+}
+
+.podium-card {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(var(--team-rgb), 0.2), rgba(255, 255, 255, 0.02));
+}
+
+.podium-card + .podium-card {
+  margin-top: 12px;
+}
+
+.podium-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--gold);
+  font-family: Rajdhani, Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.podium-meta {
+  min-width: 0;
+}
+
+.podium-title,
+.podium-subtitle {
+  display: block;
+}
+
+.podium-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.podium-subtitle {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.podium-points {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 800;
 }
 
 .summary-label {
@@ -107,9 +241,23 @@ h1 {
 .board {
   overflow: hidden;
   border: 1px solid var(--line);
-  background: rgba(16, 20, 29, 0.88);
+  background: rgba(14, 17, 24, 0.92);
   border-radius: 8px;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+}
+
+.team-board {
+  margin-top: 18px;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.board[data-view] {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 180ms ease, transform 180ms ease;
 }
 
 .board-heading {
@@ -118,7 +266,7 @@ h1 {
   justify-content: space-between;
   gap: 16px;
   padding: 20px 22px;
-  background: linear-gradient(90deg, rgba(229, 31, 50, 0.18), rgba(255, 255, 255, 0.02));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
   border-bottom: 1px solid var(--line);
 }
 
@@ -187,6 +335,12 @@ tbody tr:last-child td {
   gap: 12px;
 }
 
+.team-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .team-stripe {
   width: 5px;
   height: 30px;
@@ -224,6 +378,110 @@ tbody tr:last-child td {
   color: var(--gold);
 }
 
+.race-board {
+  margin-top: 18px;
+}
+
+.race-results {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding: 18px;
+}
+
+.race-card,
+.race-empty {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+}
+
+.race-round,
+.race-track,
+.race-meta {
+  display: block;
+}
+
+.race-round {
+  color: #d7deea;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.race-track {
+  margin-top: 8px;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.race-meta {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.race-winner {
+  display: inline-flex;
+  margin-top: 14px;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(var(--team-rgb), 0.22);
+  border: 1px solid rgba(var(--team-rgb), 0.4);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.race-list {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.race-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.race-list li:first-child {
+  border-top: 0;
+}
+
+.race-position {
+  color: #d6ddeb;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.race-driver {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.race-points {
+  color: var(--gold);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.race-empty {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-weight: 600;
+}
+
 footer {
   display: flex;
   justify-content: space-between;
@@ -247,6 +505,15 @@ footer {
 
   .summary {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .view-picker {
+    grid-template-columns: 1fr;
+  }
+
+  .podium-grid,
+  .race-results {
+    grid-template-columns: 1fr;
   }
 
   th,

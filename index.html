@@ -3,42 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formula Apex Leaderboard</title>
+  <title>Apex Horizon Leaderboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="shell">
     <header class="topbar">
-      <div>
-        <p class="eyebrow">Roblox Racing League</p>
-        <h1>Formula Apex Leaderboard</h1>
+      <div class="hero-copy">
+        <h1>Apex Horizon Leaderboard</h1>
+        <p class="hero-text">Choose a standings view to jump straight into the table you want.</p>
       </div>
       <div class="season-pill">Season Standings</div>
     </header>
 
+    <section class="view-picker" aria-label="Standings view selection">
+      <button class="view-card is-active" type="button" data-view-target="drivers">
+        <span class="view-card-kicker">Drivers</span>
+        <strong>See every racer ranked by points</strong>
+      </button>
+      <button class="view-card" type="button" data-view-target="teams">
+        <span class="view-card-kicker">Teams</span>
+        <strong>See constructor totals built from driver scores</strong>
+      </button>
+    </section>
+
     <section class="summary" aria-label="Leaderboard summary">
       <div>
-        <span class="summary-label">Drivers</span>
-        <strong id="driverCount">0</strong>
+        <span class="summary-label">Driver Leader</span>
+        <strong id="leaderName">-</strong>
+      </div>
+      <div>
+        <span class="summary-label">Team Leader</span>
+        <strong id="teamLeaderName">-</strong>
       </div>
       <div>
         <span class="summary-label">Teams</span>
         <strong id="teamCount">0</strong>
       </div>
       <div>
-        <span class="summary-label">Leader</span>
-        <strong id="leaderName">-</strong>
-      </div>
-      <div>
         <span class="summary-label">Top Score</span>
         <strong id="topScore">0</strong>
       </div>
+      <div>
+        <span class="summary-label">Last Updated</span>
+        <strong id="lastUpdated">-</strong>
+      </div>
     </section>
 
-    <section class="board" aria-label="Formula Apex driver standings">
+    <section class="podium-grid" aria-label="Leaderboard podiums">
+      <section class="podium-panel">
+        <div class="board-heading">
+          <h2>Driver Podium</h2>
+          <span>Top 3 racers</span>
+        </div>
+        <div class="podium-list" id="driverPodium"></div>
+      </section>
+
+      <section class="podium-panel">
+        <div class="board-heading">
+          <h2>Team Podium</h2>
+          <span>Top 3 teams</span>
+        </div>
+        <div class="podium-list" id="teamPodium"></div>
+      </section>
+    </section>
+
+    <section class="board" data-view="drivers" aria-label="Apex Horizon driver standings">
       <div class="board-heading">
         <h2>Driver Standings</h2>
         <span>Sorted by points</span>
@@ -59,9 +92,38 @@
       </div>
     </section>
 
+    <section class="board team-board is-hidden" data-view="teams" aria-label="Apex Horizon team standings">
+      <div class="board-heading">
+        <h2>Team Standings</h2>
+        <span>Auto-calculated from driver points</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Team</th>
+              <th scope="col" class="points-head">Points</th>
+            </tr>
+          </thead>
+          <tbody id="teamStandingsRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="board race-board" aria-label="Recent race results">
+      <div class="board-heading">
+        <h2>Race Results</h2>
+        <span>Recent rounds and winners</span>
+      </div>
+      <div class="race-results" id="raceResults"></div>
+    </section>
+
     <footer>
-      <span>Formula Apex</span>
-      <span>Last updated from provided standings</span>
+      <span>Apex Horizon</span>
+      <span>Made by col</span>
+      <span>Team totals are calculated from driver standings</span>
     </footer>
   </main>
 
