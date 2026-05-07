@@ -3,6 +3,7 @@ const teamRows = document.getElementById("teamStandingsRows");
 const driverPodium = document.getElementById("driverPodium");
 const teamPodium = document.getElementById("teamPodium");
 const raceResultsGrid = document.getElementById("raceResults");
+const driverStatsGrid = document.getElementById("driverStats");
 const viewCards = document.querySelectorAll("[data-view-target]");
 const viewSections = document.querySelectorAll("[data-view]");
 const teamLeaderCard = document.getElementById("teamLeaderName").parentElement;
@@ -15,8 +16,30 @@ const teamTotals = teamsList
       .reduce((total, entry) => total + entry.points, 0)
   }))
   .sort((a, b) => b.points - a.points || a.team.localeCompare(b.team));
+const driverStats = standings
+  .map((entry) => {
+    const wins = raceResults.reduce((count, race) => count + (race.results?.some((result) => result.position === 1 && result.driver === entry.driver) ? 1 : 0), 0);
+    const podiums = raceResults.reduce((count, race) => count + (race.results?.some((result) => result.position <= 3 && result.driver === entry.driver) ? 1 : 0), 0);
+    return { ...entry, wins, podiums };
+  })
+  .sort((a, b) => b.points - a.points || a.driver.localeCompare(b.driver));
 
-rows.innerHTML = sortedStandings
+const winLeader = [...driverStats].sort((a, b) => b.wins - a.wins || b.points - a.points || a.driver.localeCompare(b.driver))[0];
+const podiumLeader = [...driverStats].sort((a, b) => b.podiums - a.podiums || b.points - a.points || a.driver.localeCompare(b.driver))[0];
+const hotStreakDriver = [...driverStats].sort((a, b) => (b.wins + b.podiums) - (a.wins + a.podiums) || b.points - a.points || a.driver.localeCompare(b.driver))[0];
+
+function renderTeamLogo(team) {
+  const mark = teamMarks[team] || team.slice(0, 2).toUpperCase();
+  const logoUrl = teamLogoUrls[team];
+
+  if (logoUrl) {
+    return `<span class="team-logo" aria-hidden="true"><img src="${logoUrl}" alt=""></span>`;
+  }
+
+  return `<span class="team-logo" aria-hidden="true">${mark}</span>`;
+}
+
+rows.innerHTML = driverStats
   .map((entry, index) => {
     const rgb = teamColors[entry.team] || "140, 148, 160";
     const rank = index + 1;
@@ -27,11 +50,13 @@ rows.innerHTML = sortedStandings
         <td class="rank">#${rank}</td>
         <td>
           <div class="driver-cell">
-            <span class="team-stripe" aria-hidden="true"></span>
+            ${renderTeamLogo(entry.team)}
             <span>${entry.driver}</span>
           </div>
         </td>
-        <td><span class="team-badge">${entry.team}</span></td>
+        <td><span class="team-badge">${renderTeamLogo(entry.team)}${entry.team}</span></td>
+        <td class="stat">${entry.wins}</td>
+        <td class="stat">${entry.podiums}</td>
         <td class="points">${entry.points}</td>
       </tr>
     `;
@@ -48,6 +73,7 @@ driverPodium.innerHTML = sortedStandings
       <article class="podium-card" style="--team-rgb: ${rgb}">
         <span class="podium-rank">#${index + 1}</span>
         <div class="podium-meta">
+          ${renderTeamLogo(entry.team)}
           <span class="podium-title">${entry.driver}</span>
           <span class="podium-subtitle">${displayTeam}</span>
         </div>
@@ -69,8 +95,7 @@ teamRows.innerHTML = teamTotals
         <td class="rank">#${rank}</td>
         <td>
           <div class="team-cell">
-            <span class="team-stripe" aria-hidden="true"></span>
-            <span class="team-badge">${displayTeam}</span>
+            <span class="team-badge">${renderTeamLogo(entry.team)}${displayTeam}</span>
           </div>
         </td>
         <td class="points">${entry.points}</td>
@@ -89,10 +114,34 @@ teamPodium.innerHTML = teamTotals
       <article class="podium-card" style="--team-rgb: ${rgb}">
         <span class="podium-rank">#${index + 1}</span>
         <div class="podium-meta">
+          ${renderTeamLogo(entry.team)}
           <span class="podium-title">${displayTeam}</span>
           <span class="podium-subtitle">Constructor standings</span>
         </div>
         <span class="podium-points">${entry.points}</span>
+      </article>
+    `;
+  })
+  .join("");
+
+driverStatsGrid.innerHTML = [winLeader, podiumLeader, hotStreakDriver]
+  .map((entry, index) => {
+    const rgb = teamColors[entry.team] || "140, 148, 160";
+    const labels = [
+      { title: "Wins Leader", value: `${entry.wins} wins` },
+      { title: "Podium Leader", value: `${entry.podiums} podiums` },
+      { title: "Hot Streak", value: `${entry.wins + entry.podiums} top results` }
+    ];
+    const current = labels[index];
+
+    return `
+      <article class="driver-stat-card" style="--team-rgb: ${rgb}">
+        ${renderTeamLogo(entry.team)}
+        <div class="driver-stat-copy">
+          <span>${current.title}</span>
+          <strong>${entry.driver}</strong>
+          <span>${current.value}</span>
+        </div>
       </article>
     `;
   })
@@ -103,6 +152,15 @@ raceResultsGrid.innerHTML = raceResults.length
       .map((result) => {
         const rgb = teamColors[result.team] || "140, 148, 160";
         const displayTeam = teamDisplayNames[result.team] || result.team;
+        const podium = (result.results || [])
+          .filter((entry) => entry.position <= 3)
+          .map((entry) => `
+            <span class="race-podium-chip">
+              <strong>P${entry.position}</strong>
+              <span>${entry.driver}</span>
+            </span>
+          `)
+          .join("");
         const resultRows = (result.results || [])
           .map((entry) => `
             <li>
@@ -118,7 +176,8 @@ raceResultsGrid.innerHTML = raceResults.length
             <span class="race-round">${result.round}</span>
             <span class="race-track">${result.track}</span>
             <span class="race-meta">${displayTeam} winner</span>
-            <span class="race-winner">${result.winner}</span>
+            <span class="race-winner">${renderTeamLogo(result.team)}${result.winner}</span>
+            <div class="race-podium">${podium}</div>
             <ol class="race-list">${resultRows}</ol>
           </article>
         `;
@@ -131,10 +190,25 @@ document.getElementById("teamLeaderName").textContent = teamDisplayNames[teamTot
 document.getElementById("teamCount").textContent = teamTotals.length;
 document.getElementById("topScore").textContent = sortedStandings[0]?.points || "0";
 document.getElementById("lastUpdated").textContent = siteMeta.lastUpdated;
+document.getElementById("battleHeadline").textContent = `${sortedStandings[0]?.driver || "-"} vs ${sortedStandings[1]?.driver || "-"}`;
+document.getElementById("battleSubline").textContent = `${sortedStandings[0]?.driver || "-"} leads the standings with ${sortedStandings[0]?.points || 0} points.`;
+document.getElementById("battleLeaderName").textContent = sortedStandings[0]?.driver || "-";
+document.getElementById("battleLeaderPoints").textContent = `${sortedStandings[0]?.points || 0} pts`;
+document.getElementById("battleChaserName").textContent = sortedStandings[1]?.driver || "-";
+document.getElementById("battleChaserPoints").textContent = `${sortedStandings[1]?.points || 0} pts`;
+document.getElementById("battleGap").textContent = `${(sortedStandings[0]?.points || 0) - (sortedStandings[1]?.points || 0)} pts`;
 
 if (teamTotals[0]?.team) {
   teamLeaderCard.classList.add("is-team-highlight");
   teamLeaderCard.style.setProperty("--team-rgb", teamColors[teamTotals[0].team] || "140, 148, 160");
+}
+
+if (sortedStandings[0]?.team) {
+  document.getElementById("battleLeaderCard").style.setProperty("--team-rgb", teamColors[sortedStandings[0].team] || "140, 148, 160");
+}
+
+if (sortedStandings[1]?.team) {
+  document.getElementById("battleChaserCard").style.setProperty("--team-rgb", teamColors[sortedStandings[1].team] || "140, 148, 160");
 }
 
 function showView(viewName) {

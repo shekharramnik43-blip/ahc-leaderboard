@@ -53,6 +53,30 @@
       </div>
     </section>
 
+    <section class="battle-card" aria-label="Championship battle">
+      <div class="battle-copy">
+        <span class="summary-label">Championship Battle</span>
+        <h2 id="battleHeadline">Leader vs Challenger</h2>
+        <p id="battleSubline">The fight at the top updates from the current driver standings.</p>
+      </div>
+      <div class="battle-score">
+        <div class="battle-driver" id="battleLeaderCard">
+          <span class="battle-label">P1</span>
+          <strong id="battleLeaderName">-</strong>
+          <span id="battleLeaderPoints">0 pts</span>
+        </div>
+        <div class="battle-gap">
+          <span>Gap</span>
+          <strong id="battleGap">0 pts</strong>
+        </div>
+        <div class="battle-driver" id="battleChaserCard">
+          <span class="battle-label">P2</span>
+          <strong id="battleChaserName">-</strong>
+          <span id="battleChaserPoints">0 pts</span>
+        </div>
+      </div>
+    </section>
+
     <section class="podium-grid" aria-label="Leaderboard podiums">
       <section class="podium-panel">
         <div class="board-heading">
@@ -72,9 +96,10 @@
     </section>
 
     <section class="board" data-view="drivers" aria-label="Apex Horizon driver standings">
+      <div class="driver-stats" id="driverStats"></div>
       <div class="board-heading">
         <h2>Driver Standings</h2>
-        <span>Sorted by points</span>
+        <span>Points, wins, and podiums</span>
       </div>
 
       <div class="table-wrap">
@@ -84,6 +109,8 @@
               <th scope="col">Rank</th>
               <th scope="col">Driver</th>
               <th scope="col">Team</th>
+              <th scope="col" class="stat-head">Wins</th>
+              <th scope="col" class="stat-head">Podiums</th>
               <th scope="col" class="points-head">Points</th>
             </tr>
           </thead>
@@ -115,7 +142,7 @@
     <section class="board race-board" aria-label="Recent race results">
       <div class="board-heading">
         <h2>Race Results</h2>
-        <span>Recent rounds and winners</span>
+        <span>Round-by-round cards</span>
       </div>
       <div class="race-results" id="raceResults"></div>
     </section>

@@ -63,6 +63,39 @@ const teamDisplayNames = {
   Vcarb: "VCARB"
 };
 
+const teamMarks = {
+  Audi: "AU",
+  Alpine: "AP",
+  Peugeot: "PG",
+  Mclaren: "MC",
+  BMW: "BM",
+  Mercedes: "ME",
+  Williams: "WI",
+  Vcarb: "VC",
+  Aston: "AM",
+  Haas: "HS",
+  "Red Bull": "RB",
+  Cadillac: "CD",
+  Ferrari: "FR",
+  Alten: "AL"
+};
+
+const teamLogoUrls = {
+  Audi: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Audi%20logo.svg",
+  Alpine: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Alpine%20F1%20Team%20Logo.svg",
+  Peugeot: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Peugeot%20logo.svg",
+  Mclaren: "https://commons.wikimedia.org/wiki/Special:Redirect/file/McLaren%202018%20logo.svg",
+  BMW: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BMW.svg",
+  Mercedes: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mercedes-Logo.svg",
+  Williams: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Williams%20Racing%202022%20logo.svg",
+  Vcarb: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Red%20Bull%20Racing%20-%202021%20Logo.svg",
+  Aston: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Aston%20Martin%20wordmark.svg",
+  Haas: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Haas%20F1%20Team%20Logo.svg",
+  "Red Bull": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Red%20Bull%20Racing%20-%202021%20Logo.svg",
+  Cadillac: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cadillac%20Logo%202021.svg",
+  Ferrari: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ferrari%20wordmark.svg"
+};
+
 const siteMeta = {
   lastUpdated: "07 May 2026"
 };
