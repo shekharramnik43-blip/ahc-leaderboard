@@ -1,0 +1,40 @@
+const standings = [
+  { driver: "xyro", team: "Audi", points: 58 },
+  { driver: "late", team: "Alpine", points: 47 },
+  { driver: "Yatneil", team: "Audi", points: 40 },
+  { driver: "Vini", team: "Peugeot", points: 26 },
+  { driver: "Ade", team: "BMW", points: 21 },
+  { driver: "Justk4rt", team: "Peugeot", points: 19 },
+  { driver: "saul_security", team: "Alpine", points: 18 },
+  { driver: "DeDe", team: "Mclaren", points: 17 },
+  { driver: "Kurjaka", team: "Peugeot", points: 16 },
+  { driver: "LordGRIMM", team: "Williams", points: 14 },
+  { driver: "training", team: "Mercedes", points: 12 },
+  { driver: "Shah", team: "Vcarb", points: 11 },
+  { driver: "dummy", team: "Aston", points: 10 },
+  { driver: "Mokrouxton", team: "Haas", points: 8 },
+  { driver: "dudegameo", team: "Alpine", points: 6 },
+  { driver: "Gabe", team: "Alpine", points: 2 },
+  { driver: "Leighton", team: "Red Bull", points: 2 },
+  { driver: "immortal", team: "Red Bull", points: 2 },
+  { driver: "imnotbern", team: "Audi", points: 1 },
+  { driver: "oibossbs", team: "BMW", points: 1 },
+  { driver: "Jayethanli", team: "Cadillac", points: 1 },
+  { driver: "soso", team: "Mclaren", points: 4 },
+  { driver: "f1 phantom", team: "Mercedes", points: 3 }
+];
+
+const teamColors = {
+  Alpine: "255, 91, 222",
+  Peugeot: "110, 174, 85",
+  BMW: "47, 82, 128",
+  Audi: "136, 57, 48",
+  Vcarb: "34, 58, 94",
+  Haas: "117, 55, 54",
+  Aston: "43, 111, 24",
+  "Red Bull": "78, 139, 230",
+  Mclaren: "224, 132, 36",
+  Williams: "84, 157, 238",
+  Mercedes: "95, 158, 169",
+  Cadillac: "22, 24, 34"
+};

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formula Apex Leaderboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Roblox Racing League</p>
+        <h1>Formula Apex Leaderboard</h1>
+      </div>
+      <div class="season-pill">Season Standings</div>
+    </header>
+
+    <section class="summary" aria-label="Leaderboard summary">
+      <div>
+        <span class="summary-label">Drivers</span>
+        <strong id="driverCount">0</strong>
+      </div>
+      <div>
+        <span class="summary-label">Teams</span>
+        <strong id="teamCount">0</strong>
+      </div>
+      <div>
+        <span class="summary-label">Leader</span>
+        <strong id="leaderName">-</strong>
+      </div>
+      <div>
+        <span class="summary-label">Top Score</span>
+        <strong id="topScore">0</strong>
+      </div>
+    </section>
+
+    <section class="board" aria-label="Formula Apex driver standings">
+      <div class="board-heading">
+        <h2>Driver Standings</h2>
+        <span>Sorted by points</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Driver</th>
+              <th scope="col">Team</th>
+              <th scope="col" class="points-head">Points</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <span>Formula Apex</span>
+      <span>Last updated from provided standings</span>
+    </footer>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
