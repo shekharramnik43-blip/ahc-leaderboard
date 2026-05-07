@@ -1,6 +1,6 @@
 const standings = [
   { driver: "xyro", team: "Audi", points: 58 },
-  { driver: "late", team: "Alpine", points: 47 },
+  { driver: "Iate", team: "Alpine", points: 47 },
   { driver: "Yatneil", team: "Audi", points: 40 },
   { driver: "Vini", team: "Peugeot", points: 26 },
   { driver: "Ade", team: "BMW", points: 21 },
@@ -104,10 +104,10 @@ const raceResults = [
   {
     round: "Round 1",
     track: "Australian GP",
-    winner: "late",
+    winner: "Iate",
     team: "Alpine",
     results: [
-      { position: 1, driver: "late", racePoints: 25 },
+      { position: 1, driver: "Iate", racePoints: 25 },
       { position: 2, driver: "Vini", racePoints: 18 },
       { position: 3, driver: "Ade", racePoints: 15 },
       { position: 4, driver: "Yatneil", racePoints: 12 },
@@ -127,7 +127,7 @@ const raceResults = [
     results: [
       { position: 1, driver: "xyro", racePoints: 25 },
       { position: 2, driver: "Yatneil", racePoints: 18 },
-      { position: 3, driver: "late", racePoints: 15 },
+      { position: 3, driver: "Iate", racePoints: 15 },
       { position: 4, driver: "DeDe", racePoints: 12 },
       { position: 5, driver: "iceh", racePoints: 10 },
       { position: 6, driver: "Vini", racePoints: 8 },
@@ -162,7 +162,7 @@ const raceResults = [
     team: "Audi",
     results: [
       { position: 1, driver: "xyro", racePoints: 8 },
-      { position: 2, driver: "late", racePoints: 7 },
+      { position: 2, driver: "Iate", racePoints: 7 },
       { position: 3, driver: "iceh", racePoints: 6 },
       { position: 4, driver: "DeDe", racePoints: 5 },
       { position: 5, driver: "Justk4rt", racePoints: 4 },
