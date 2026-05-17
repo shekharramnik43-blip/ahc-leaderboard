@@ -12,14 +12,7 @@ const seasonButtons = document.querySelectorAll("[data-season]");
 const seasonNotice = document.getElementById("seasonNotice");
 const teamLeaderCard = document.getElementById("teamLeaderName").parentElement;
 const sortedStandings = [...standings].sort((a, b) => b.points - a.points || a.driver.localeCompare(b.driver));
-const teamTotals = teamsList
-  .map((team) => ({
-    team,
-    points: standings
-      .filter((entry) => entry.team === team)
-      .reduce((total, entry) => total + entry.points, 0)
-  }))
-  .sort((a, b) => b.points - a.points || a.team.localeCompare(b.team));
+const teamTotals = [...teamStandings].sort((a, b) => b.points - a.points || a.team.localeCompare(b.team));
 const driverStats = standings
   .map((entry) => {
     const wins = raceResults.reduce((count, race) => count + (race.results?.some((result) => result.position === 1 && result.driver === entry.driver) ? 1 : 0), 0);
@@ -41,7 +34,8 @@ function renderTeamLogo(team) {
     return `<span class="team-logo" aria-hidden="true"><img src="${logoUrl}" alt=""></span>`;
   }
 
-  return `<span class="team-logo" aria-hidden="true">${mark}</span>`;
+  const wordmarkClass = mark.length > 2 ? " wordmark" : "";
+  return `<span class="team-logo${wordmarkClass}" aria-hidden="true">${mark}</span>`;
 }
 
 function medalClassForRank(rank) {
@@ -270,44 +264,6 @@ if (sortedStandings[0]?.team) {
 if (sortedStandings[1]?.team) {
   document.getElementById("battleChaserCard").style.setProperty("--team-rgb", teamColors[sortedStandings[1].team] || "140, 148, 160");
 }
-
-function updateUpcomingCountdown() {
-  const countdownNode = document.getElementById("upcomingCountdown");
-  const daysNode = document.getElementById("countdownDays");
-  const hoursNode = document.getElementById("countdownHours");
-  const minutesNode = document.getElementById("countdownMinutes");
-  const secondsNode = document.getElementById("countdownSeconds");
-  const millisNode = document.getElementById("countdownMillis");
-  const startTime = new Date(upcomingRace.startTimeIso);
-  const now = new Date();
-  const diff = startTime.getTime() - now.getTime();
-
-  if (diff <= 0) {
-    countdownNode.textContent = "Race weekend is live";
-    daysNode.textContent = "00";
-    hoursNode.textContent = "00";
-    minutesNode.textContent = "00";
-    secondsNode.textContent = "00";
-    millisNode.textContent = "000";
-    return;
-  }
-
-  const days = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff % 86400000) / 3600000);
-  const minutes = Math.floor((diff % 3600000) / 60000);
-  const seconds = Math.floor((diff % 60000) / 1000);
-  const millis = diff % 1000;
-
-  daysNode.textContent = String(days).padStart(2, "0");
-  hoursNode.textContent = String(hours).padStart(2, "0");
-  minutesNode.textContent = String(minutes).padStart(2, "0");
-  secondsNode.textContent = String(seconds).padStart(2, "0");
-  millisNode.textContent = String(millis).padStart(3, "0");
-  countdownNode.textContent = `Starts in ${days}d ${hours}h ${minutes}m ${seconds}s`;
-}
-
-updateUpcomingCountdown();
-window.setInterval(updateUpcomingCountdown, 50);
 
 function showView(viewName) {
   if (viewName === activeView) {
