@@ -1,32 +1,52 @@
 const standings = [
-  { driver: "late", team: "Alpine", points: 72 },
+  { driver: "late", team: "Alpine", points: 78 },
   { driver: "xyro", team: "Audi", points: 58 },
-  { driver: "Yatneil", team: "Audi", points: 46 },
+  { driver: "Yatneil", team: "Audi", points: 56 },
+  { driver: "Curren", team: "Ferrari", points: 30 },
   { driver: "Vini", team: "Peugeot", points: 26 },
+  { driver: "Ade", team: "BMW", points: 25 },
   { driver: "Mokrouxton", team: "Haas", points: 23 },
-  { driver: "Ade", team: "BMW", points: 21 },
   { driver: "Justk4rt", team: "Peugeot", points: 19 },
-  { driver: "LordGRIMM", team: "Williams", points: 18 },
+  { driver: "LordGRIMM", team: "Williams", points: 19 },
   { driver: "saul_security", team: "Alpine", points: 18 },
-  { driver: "N1teiger", team: "Peugeot", points: 18 },
-  { driver: "DeDe", team: "Mclaren", points: 17 },
+  { driver: "N1teiger", team: "Red Bull", points: 18 },
+  { driver: "DeDe", team: "Alpine", points: 17 },
   { driver: "Kurjaka", team: "Peugeot", points: 16 },
   { driver: "dummy", team: "Aston", points: 12 },
   { driver: "training", team: "Mercedes", points: 12 },
-  { driver: "Curren", team: "Ferrari", points: 12 },
   { driver: "Shah", team: "Vcarb", points: 11 },
   { driver: "Al3x", team: "Cadillac", points: 10 },
   { driver: "Cavalry", team: "Mclaren", points: 8 },
+  { driver: "Speed", team: "Alten", points: 8 },
   { driver: "dudegameo", team: "Alpine", points: 6 },
   { driver: "soso", team: "Mclaren", points: 4 },
   { driver: "f1 phantom", team: "Mercedes", points: 3 },
   { driver: "Gabe", team: "Alpine", points: 2 },
   { driver: "Leighton", team: "Red Bull", points: 2 },
   { driver: "immortal", team: "Red Bull", points: 2 },
+  { driver: "maxiemygoat", team: "BMW", points: 2 },
   { driver: "imnotbern", team: "Audi", points: 1 },
   { driver: "oibossbs", team: "BMW", points: 1 },
   { driver: "Jayethanli", team: "Cadillac", points: 1 },
-  { driver: "Yanfrito", team: "Peugeot", points: 1 }
+  { driver: "Yanfrito", team: "Peugeot", points: 1 },
+  { driver: "Crimz", team: "Audi", points: 25 }
+];
+
+const teamStandings = [
+  { team: "Audi", points: 140 },
+  { team: "Alpine", points: 116 },
+  { team: "Peugeot", points: 74 },
+  { team: "Mclaren", points: 35 },
+  { team: "Ferrari", points: 30 },
+  { team: "BMW", points: 28 },
+  { team: "Haas", points: 23 },
+  { team: "Red Bull", points: 19 },
+  { team: "Williams", points: 19 },
+  { team: "Mercedes", points: 15 },
+  { team: "Aston", points: 12 },
+  { team: "Vcarb", points: 11 },
+  { team: "Cadillac", points: 11 },
+  { team: "Alten", points: 8 }
 ];
 
 const teamColors = {
@@ -100,16 +120,15 @@ const teamLogoUrls = {
 };
 
 const siteMeta = {
-  lastUpdated: "13 May 2026"
+  lastUpdated: "17 May 2026"
 };
 
 const upcomingRace = {
-  title: "British GP",
-  track: "Silverstone Circuit",
-  round: "S1 Round 5",
-  date: "17th May",
-  conditions: "19:30 IST",
-  startTimeIso: "2026-05-17T19:30:00+05:30"
+  title: "Mexico",
+  track: "Coming Soon",
+  round: "Next Round",
+  date: "",
+  conditions: ""
 };
 
 const raceResults = [
@@ -183,6 +202,24 @@ const raceResults = [
       { position: 8, driver: "LordGRIMM", racePoints: 4 },
       { position: 9, driver: "dummy", racePoints: 2 },
       { position: 10, driver: "Yanfrito", racePoints: 1 }
+    ]
+  },
+  {
+    round: "Round 5",
+    track: "Silverstone GP",
+    winner: "Crimz",
+    team: "Audi",
+    results: [
+      { position: 1, driver: "Crimz", racePoints: 25 },
+      { position: 2, driver: "Curren", racePoints: 18 },
+      { position: 3, driver: "N1teiger", racePoints: 15 },
+      { position: 4, driver: "DeDe", racePoints: 12 },
+      { position: 5, driver: "Yatneil", racePoints: 10 },
+      { position: 6, driver: "Speed", racePoints: 8 },
+      { position: 7, driver: "late", racePoints: 6 },
+      { position: 8, driver: "Ade", racePoints: 4 },
+      { position: 9, driver: "maxiemygoat", racePoints: 2 },
+      { position: 10, driver: "LordGRIMM", racePoints: 1 }
     ]
   }
 ];
