@@ -1,52 +1,52 @@
 const standings = [
   { driver: "late", team: "Alpine", points: 78 },
-  { driver: "xyro", team: "Audi", points: 58 },
-  { driver: "Yatneil", team: "Audi", points: 56 },
-  { driver: "Curren", team: "Ferrari", points: 30 },
   { driver: "Vini", team: "Peugeot", points: 26 },
-  { driver: "Ade", team: "BMW", points: 25 },
+  { driver: "Ade", team: "BMW", points: 31 },
+  { driver: "Yatneil", team: "Audi", points: 56 },
+  { driver: "Shah", team: "Vcarb", points: 11 },
   { driver: "Mokrouxton", team: "Haas", points: 23 },
-  { driver: "Justk4rt", team: "Peugeot", points: 19 },
-  { driver: "LordGRIMM", team: "Williams", points: 19 },
-  { driver: "saul_security", team: "Alpine", points: 18 },
-  { driver: "N1teiger", team: "Red Bull", points: 33 },
+  { driver: "dudegameo", team: "Alpine", points: 6 },
+  { driver: "dummy", team: "Aston", points: 12 },
+  { driver: "Leighton", team: "Red Bull", points: 2 },
+  { driver: "imnotbern", team: "Peugeot", points: 2 },
+  { driver: "xyro", team: "Audi", points: 66 },
   { driver: "DeDe", team: "Alpine", points: 29 },
   { driver: "Kurjaka", team: "Peugeot", points: 16 },
-  { driver: "dummy", team: "Aston", points: 12 },
+  { driver: "LordGRIMM", team: "Williams", points: 23 },
+  { driver: "Gabe", team: "Alpine", points: 2 },
+  { driver: "Justk4rt", team: "Peugeot", points: 19 },
+  { driver: "f1 phantom", team: "Mercedes", points: 3 },
+  { driver: "oibossbs", team: "BMW", points: 1 },
+  { driver: "saul_security", team: "Alpine", points: 18 },
   { driver: "training", team: "Mercedes", points: 12 },
-  { driver: "Shah", team: "Vcarb", points: 11 },
+  { driver: "soso", team: "Mclaren", points: 4 },
+  { driver: "immortal", team: "Red Bull", points: 2 },
+  { driver: "Jayethanli", team: "Cadillac", points: 1 },
+  { driver: "N1teiger", team: "Red Bull", points: 40 },
+  { driver: "Curren", team: "Ferrari", points: 35 },
   { driver: "Al3x", team: "Cadillac", points: 10 },
   { driver: "Cavalry", team: "Mclaren", points: 8 },
-  { driver: "Speed", team: "Alten", points: 8 },
-  { driver: "dudegameo", team: "Alpine", points: 6 },
-  { driver: "soso", team: "Mclaren", points: 4 },
-  { driver: "f1 phantom", team: "Mercedes", points: 3 },
-  { driver: "Gabe", team: "Alpine", points: 2 },
-  { driver: "Leighton", team: "Red Bull", points: 2 },
-  { driver: "immortal", team: "Red Bull", points: 2 },
-  { driver: "maxiemygoat", team: "BMW", points: 2 },
-  { driver: "imnotbern", team: "Peugeot", points: 1 },
-  { driver: "oibossbs", team: "BMW", points: 1 },
-  { driver: "Jayethanli", team: "Cadillac", points: 1 },
   { driver: "Yanfrito", team: "Peugeot", points: 1 },
-  { driver: "Crimz", team: "Audi", points: 25 }
+  { driver: "Crimz", team: "Audi", points: 25 },
+  { driver: "Speed", team: "Alten", points: 8 },
+  { driver: "maxiemygoat", team: "BMW", points: 2 }
 ];
 
 const teamStandings = [
-  { team: "Audi", points: 140 },
-  { team: "Alpine", points: 116 },
-  { team: "Peugeot", points: 74 },
-  { team: "Mclaren", points: 35 },
-  { team: "Ferrari", points: 30 },
-  { team: "BMW", points: 28 },
+  { team: "Alpine", points: 119 },
   { team: "Haas", points: 23 },
-  { team: "Red Bull", points: 19 },
-  { team: "Williams", points: 19 },
+  { team: "Audi", points: 148 },
+  { team: "Red Bull", points: 26 },
   { team: "Mercedes", points: 15 },
-  { team: "Aston", points: 12 },
+  { team: "Peugeot", points: 75 },
+  { team: "Williams", points: 23 },
   { team: "Vcarb", points: 11 },
+  { team: "BMW", points: 34 },
+  { team: "Ferrari", points: 35 },
   { team: "Cadillac", points: 11 },
-  { team: "Alten", points: 8 }
+  { team: "Aston", points: 12 },
+  { team: "Alten", points: 8 },
+  { team: "Mclaren", points: 35 }
 ];
 
 const teamColors = {
@@ -84,6 +84,7 @@ const teamsList = [
 ];
 
 const teamDisplayNames = {
+  Alpine: "Gucci alpine",
   Aston: "Aston Martin",
   Vcarb: "VCARB"
 };
@@ -105,22 +106,10 @@ const teamMarks = {
   Alten: "AL"
 };
 
-const teamLogoUrls = {
-  Audi: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Audi%20logo.svg",
-  Alpine: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Alpine%20F1%20Team%20Logo.svg",
-  Peugeot: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Peugeot%20logo.svg",
-  Mclaren: "https://commons.wikimedia.org/wiki/Special:Redirect/file/McLaren%202018%20logo.svg",
-  Mercedes: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mercedes-Logo.svg",
-  Williams: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Williams%20Racing%202022%20logo.svg",
-  Vcarb: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Red%20Bull%20Racing%20-%202021%20Logo.svg",
-  Aston: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Aston%20Martin%20wordmark.svg",
-  Haas: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Haas%20F1%20Team%20Logo.svg",
-  "Red Bull": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Red%20Bull%20Racing%20-%202021%20Logo.svg",
-  Ferrari: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ferrari%20wordmark.svg"
-};
+const teamLogoUrls = {};
 
 const siteMeta = {
-  lastUpdated: "17 May 2026"
+  lastUpdated: "30 May 2026"
 };
 
 const upcomingRace = {
@@ -220,6 +209,22 @@ const raceResults = [
       { position: 8, driver: "Ade", racePoints: 4 },
       { position: 9, driver: "maxiemygoat", racePoints: 2 },
       { position: 10, driver: "LordGRIMM", racePoints: 1 }
+    ]
+  },
+  {
+    round: "Sprint",
+    track: "Mexican Sprint",
+    winner: "xyro",
+    team: "Audi",
+    results: [
+      { position: 1, driver: "xyro", racePoints: 8 },
+      { position: 2, driver: "N1teiger", racePoints: 7 },
+      { position: 3, driver: "Ade", racePoints: 6 },
+      { position: 4, driver: "Curren", racePoints: 5 },
+      { position: 5, driver: "LordGRIMM", racePoints: 4 },
+      { position: 6, driver: "late", racePoints: 3 },
+      { position: 7, driver: "aston???" },
+      { position: 8, driver: "imnotbern", racePoints: 1 }
     ]
   }
 ];

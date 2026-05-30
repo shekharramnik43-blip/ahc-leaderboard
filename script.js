@@ -31,7 +31,7 @@ function renderTeamLogo(team) {
   const logoUrl = teamLogoUrls[team];
 
   if (logoUrl) {
-    return `<span class="team-logo" aria-hidden="true"><img src="${logoUrl}" alt=""></span>`;
+    return `<span class="team-logo has-image" aria-hidden="true"><img src="${logoUrl}" alt=""></span>`;
   }
 
   const wordmarkClass = mark.length > 2 ? " wordmark" : "";
@@ -248,8 +248,8 @@ document.getElementById("battleLeaderPoints").textContent = `${sortedStandings[0
 document.getElementById("battleChaserName").textContent = sortedStandings[1]?.driver || "-";
 document.getElementById("battleChaserPoints").textContent = `${sortedStandings[1]?.points || 0} pts`;
 document.getElementById("battleGap").textContent = `${(sortedStandings[0]?.points || 0) - (sortedStandings[1]?.points || 0)} pts`;
-document.getElementById("battleProgressLeader").textContent = `${sortedStandings[0]?.driver || "-"} • ${sortedStandings[0]?.points || 0}`;
-document.getElementById("battleProgressChaser").textContent = `${sortedStandings[1]?.driver || "-"} • ${sortedStandings[1]?.points || 0}`;
+document.getElementById("battleProgressLeader").textContent = `${sortedStandings[0]?.driver || "-"} | ${sortedStandings[0]?.points || 0}`;
+document.getElementById("battleProgressChaser").textContent = `${sortedStandings[1]?.driver || "-"} | ${sortedStandings[1]?.points || 0}`;
 document.getElementById("battleProgressFill").style.width = `${sortedStandings[0]?.points ? Math.max(18, ((sortedStandings[1]?.points || 0) / sortedStandings[0].points) * 100) : 0}%`;
 
 if (teamTotals[0]?.team) {
