@@ -1,8 +1,8 @@
 const standings = [
-  { driver: "late", team: "Alpine", points: 78 },
+  { driver: "Iate", team: "Alpine", points: 90 },
   { driver: "Vini", team: "Peugeot", points: 26 },
-  { driver: "Ade", team: "BMW", points: 31 },
-  { driver: "Yatneil", team: "Audi", points: 56 },
+  { driver: "Ade", team: "BMW", points: 41 },
+  { driver: "Yatneil", team: "Audi", points: 81 },
   { driver: "Shah", team: "Vcarb", points: 11 },
   { driver: "Mokrouxton", team: "Haas", points: 23 },
   { driver: "dudegameo", team: "Alpine", points: 6 },
@@ -10,7 +10,7 @@ const standings = [
   { driver: "Leighton", team: "Red Bull", points: 2 },
   { driver: "imnotbern", team: "Peugeot", points: 2 },
   { driver: "xyro", team: "Audi", points: 66 },
-  { driver: "DeDe", team: "Alpine", points: 29 },
+  { driver: "DeDe", team: "Alpine", points: 44 },
   { driver: "Kurjaka", team: "Peugeot", points: 16 },
   { driver: "LordGRIMM", team: "Williams", points: 23 },
   { driver: "Gabe", team: "Alpine", points: 2 },
@@ -19,7 +19,7 @@ const standings = [
   { driver: "oibossbs", team: "BMW", points: 1 },
   { driver: "saul_security", team: "Alpine", points: 18 },
   { driver: "training", team: "Mercedes", points: 12 },
-  { driver: "soso", team: "Mclaren", points: 4 },
+  { driver: "soso", team: "Mclaren", points: 8 },
   { driver: "immortal", team: "Red Bull", points: 2 },
   { driver: "Jayethanli", team: "Cadillac", points: 1 },
   { driver: "N1teiger", team: "Red Bull", points: 40 },
@@ -29,24 +29,27 @@ const standings = [
   { driver: "Yanfrito", team: "Peugeot", points: 1 },
   { driver: "Crimz", team: "Audi", points: 25 },
   { driver: "Speed", team: "Alten", points: 8 },
-  { driver: "maxiemygoat", team: "BMW", points: 2 }
+  { driver: "maxiemygoat", team: "BMW", points: 8 },
+  { driver: "Ursuz", team: "Cadillac", points: 18 },
+  { driver: "DanilKyvat", team: "Red Bull", points: 8 },
+  { driver: "Denderdim", team: "Alten", points: 1 }
 ];
 
 const teamStandings = [
-  { team: "Alpine", points: 119 },
+  { team: "Alpine", points: 146 },
   { team: "Haas", points: 23 },
-  { team: "Audi", points: 148 },
-  { team: "Red Bull", points: 26 },
+  { team: "Audi", points: 173 },
+  { team: "Red Bull", points: 34 },
   { team: "Mercedes", points: 15 },
   { team: "Peugeot", points: 75 },
   { team: "Williams", points: 23 },
   { team: "Vcarb", points: 11 },
-  { team: "BMW", points: 34 },
+  { team: "BMW", points: 50 },
   { team: "Ferrari", points: 35 },
-  { team: "Cadillac", points: 11 },
+  { team: "Cadillac", points: 29 },
   { team: "Aston", points: 12 },
-  { team: "Alten", points: 8 },
-  { team: "Mclaren", points: 35 }
+  { team: "Alten", points: 9 },
+  { team: "Mclaren", points: 39 }
 ];
 
 const teamColors = {
@@ -86,6 +89,7 @@ const teamsList = [
 const teamDisplayNames = {
   Alpine: "Gucci alpine",
   Aston: "Aston Martin",
+  "Red Bull": "Redbull",
   Vcarb: "VCARB"
 };
 
@@ -109,7 +113,7 @@ const teamMarks = {
 const teamLogoUrls = {};
 
 const siteMeta = {
-  lastUpdated: "30 May 2026"
+  lastUpdated: "31 May 2026"
 };
 
 const upcomingRace = {
@@ -124,10 +128,10 @@ const raceResults = [
   {
     round: "Round 1",
     track: "Australian GP",
-    winner: "late",
+    winner: "Iate",
     team: "Alpine",
     results: [
-      { position: 1, driver: "late", racePoints: 25 },
+      { position: 1, driver: "Iate", racePoints: 25 },
       { position: 2, driver: "Vini", racePoints: 18 },
       { position: 3, driver: "Ade", racePoints: 15 },
       { position: 4, driver: "Yatneil", racePoints: 12 },
@@ -147,7 +151,7 @@ const raceResults = [
     results: [
       { position: 1, driver: "xyro", racePoints: 25 },
       { position: 2, driver: "Yatneil", racePoints: 18 },
-      { position: 3, driver: "late", racePoints: 15 },
+      { position: 3, driver: "Iate", racePoints: 15 },
       { position: 4, driver: "DeDe", racePoints: 12 },
       { position: 5, driver: "Kurjaka", racePoints: 10 },
       { position: 6, driver: "Vini", racePoints: 8 },
@@ -178,10 +182,10 @@ const raceResults = [
   {
     round: "Round 4",
     track: "German GP",
-    winner: "late",
+    winner: "Iate",
     team: "Alpine",
     results: [
-      { position: 1, driver: "late", racePoints: 25 },
+      { position: 1, driver: "Iate", racePoints: 25 },
       { position: 2, driver: "N1teiger", racePoints: 18 },
       { position: 3, driver: "Mokrouxton", racePoints: 15 },
       { position: 4, driver: "Curren", racePoints: 12 },
@@ -205,7 +209,7 @@ const raceResults = [
       { position: 4, driver: "DeDe", racePoints: 12 },
       { position: 5, driver: "Yatneil", racePoints: 10 },
       { position: 6, driver: "Speed", racePoints: 8 },
-      { position: 7, driver: "late", racePoints: 6 },
+      { position: 7, driver: "Iate", racePoints: 6 },
       { position: 8, driver: "Ade", racePoints: 4 },
       { position: 9, driver: "maxiemygoat", racePoints: 2 },
       { position: 10, driver: "LordGRIMM", racePoints: 1 }
@@ -222,9 +226,27 @@ const raceResults = [
       { position: 3, driver: "Ade", racePoints: 6 },
       { position: 4, driver: "Curren", racePoints: 5 },
       { position: 5, driver: "LordGRIMM", racePoints: 4 },
-      { position: 6, driver: "late", racePoints: 3 },
+      { position: 6, driver: "Iate", racePoints: 3 },
       { position: 7, driver: "aston???" },
       { position: 8, driver: "imnotbern", racePoints: 1 }
+    ]
+  },
+  {
+    round: "Round 6",
+    track: "Mexican GP",
+    winner: "Yatneil",
+    team: "Audi",
+    results: [
+      { position: 1, driver: "Yatneil", racePoints: 25 },
+      { position: 2, driver: "Ursuz", racePoints: 18 },
+      { position: 3, driver: "DeDe", racePoints: 15 },
+      { position: 4, driver: "Iate", racePoints: 12 },
+      { position: 5, driver: "Ade", racePoints: 10 },
+      { position: 6, driver: "DanilKyvat", racePoints: 8 },
+      { position: 7, driver: "maxiemygoat", racePoints: 6 },
+      { position: 8, driver: "soso", racePoints: 4 },
+      { position: 9, driver: "TBD" },
+      { position: 10, driver: "Denderdim", racePoints: 1 }
     ]
   }
 ];
