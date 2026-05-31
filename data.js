@@ -117,11 +117,13 @@ const siteMeta = {
 };
 
 const upcomingRace = {
-  title: "Mexico",
-  track: "Coming Soon",
+  flag: "Azerbaijan Event Deck",
+  title: "Azerbaijan GP",
+  track: "Baku Street Circuit",
   round: "Next Round",
-  date: "",
-  conditions: ""
+  date: "7 June 2026",
+  conditions: "7:30 PM IST",
+  startTime: "2026-06-07T19:30:00+05:30"
 };
 
 const raceResults = [

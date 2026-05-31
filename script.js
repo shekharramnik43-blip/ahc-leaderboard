@@ -11,6 +11,11 @@ const viewSections = document.querySelectorAll("[data-view]");
 const seasonButtons = document.querySelectorAll("[data-season]");
 const seasonNotice = document.getElementById("seasonNotice");
 const teamLeaderCard = document.getElementById("teamLeaderName").parentElement;
+const countdownDays = document.getElementById("countdownDays");
+const countdownHours = document.getElementById("countdownHours");
+const countdownMinutes = document.getElementById("countdownMinutes");
+const countdownSeconds = document.getElementById("countdownSeconds");
+const countdownStatus = document.getElementById("countdownStatus");
 const sortedStandings = [...standings].sort((a, b) => b.points - a.points || a.driver.localeCompare(b.driver));
 const teamTotals = [...teamStandings].sort((a, b) => b.points - a.points || a.team.localeCompare(b.team));
 const driverStats = standings
@@ -236,6 +241,7 @@ document.getElementById("teamLeaderName").textContent = teamDisplayNames[teamTot
 document.getElementById("teamCount").textContent = teamTotals.length;
 document.getElementById("topScore").textContent = sortedStandings[0]?.points || "0";
 document.getElementById("lastUpdated").textContent = siteMeta.lastUpdated;
+document.getElementById("upcomingFlag").textContent = upcomingRace.flag || "Event Deck";
 document.getElementById("upcomingTitle").textContent = upcomingRace.title;
 document.getElementById("upcomingTrack").textContent = upcomingRace.track;
 document.getElementById("upcomingRound").textContent = upcomingRace.round;
@@ -251,6 +257,41 @@ document.getElementById("battleGap").textContent = `${(sortedStandings[0]?.point
 document.getElementById("battleProgressLeader").textContent = `${sortedStandings[0]?.driver || "-"} | ${sortedStandings[0]?.points || 0}`;
 document.getElementById("battleProgressChaser").textContent = `${sortedStandings[1]?.driver || "-"} | ${sortedStandings[1]?.points || 0}`;
 document.getElementById("battleProgressFill").style.width = `${sortedStandings[0]?.points ? Math.max(18, ((sortedStandings[1]?.points || 0) / sortedStandings[0].points) * 100) : 0}%`;
+
+function updateCountdown() {
+  if (!upcomingRace.startTime) {
+    countdownStatus.textContent = "Date to be announced";
+    return;
+  }
+
+  const targetTime = new Date(upcomingRace.startTime).getTime();
+  const now = Date.now();
+  const diff = targetTime - now;
+
+  if (diff <= 0) {
+    countdownDays.textContent = "00";
+    countdownHours.textContent = "00";
+    countdownMinutes.textContent = "00";
+    countdownSeconds.textContent = "00";
+    countdownStatus.textContent = "Race time has arrived";
+    return;
+  }
+
+  const totalSeconds = Math.floor(diff / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  countdownDays.textContent = String(days).padStart(2, "0");
+  countdownHours.textContent = String(hours).padStart(2, "0");
+  countdownMinutes.textContent = String(minutes).padStart(2, "0");
+  countdownSeconds.textContent = String(seconds).padStart(2, "0");
+  countdownStatus.textContent = "Counting down to lights out";
+}
+
+updateCountdown();
+window.setInterval(updateCountdown, 1000);
 
 if (teamTotals[0]?.team) {
   teamLeaderCard.classList.add("is-team-highlight");
